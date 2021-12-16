@@ -11,7 +11,7 @@ export class PostCommentsService {
 
     constructor(private _http: HttpClient) { }
 
-    getPostComments(postId: number): Observable<IPostCommentResponse> {
-        return this._http.get<IPostCommentResponse>(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
+    getPostComments(postId: number): Observable<IPostCommentResponse[]> {
+        return this._http.get<IPostCommentResponse[]>(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
     }
 }

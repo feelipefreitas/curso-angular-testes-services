@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostCommentsService } from './shared/services/post-comments.service';
 import { PostsService } from './shared/services/posts.service';
+import { IPostResponse } from './shared/interfaces/responses/post.response.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -8,28 +10,25 @@ import { PostsService } from './shared/services/posts.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  posts: IPostResponse[] = [];
+  gotError = false;
 
   constructor(
-    private _postsService: PostsService,
-    private _postCommentsService: PostCommentsService
+    private _postsService: PostsService
   ) { }
 
   ngOnInit(): void {
     console.log('On Init');
 
-    this._postsService.getPosts().subscribe(postsResponse => {
-      console.log('POSTS RESPONSE');
-      console.log(postsResponse);
-    });
+    this._postsService.getPosts().subscribe(
+      postsResponse => {
 
-    this._postsService.getPostById(1).subscribe(postResponse => {
-      console.log('POST RESPONSE');
-      console.log(postResponse);
-    });
-
-    this._postCommentsService.getPostComments(2).subscribe(commentsResponse => {
-      console.log('COMMENTS RESPONSE');
-      console.log(commentsResponse);
-    });
+        this.posts = postsResponse;
+      },
+      (error: HttpErrorResponse) => {
+        this.gotError = true;
+        this.posts = [];
+      }
+    );
   }
 }

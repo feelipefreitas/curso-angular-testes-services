@@ -4,7 +4,7 @@ import { NewPostsService } from "../new-posts.service";
 import { PostsResponseMock } from "../../mocks/models/responses/posts.response.mock";
 import { HttpRequest } from "@angular/common/http";
 
-fdescribe('NewPostsService', () => {
+describe('NewPostsService', () => {
     let httpTestingController: HttpTestingController;
     let service: NewPostsService;
 
